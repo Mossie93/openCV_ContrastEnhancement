@@ -1,24 +1,26 @@
 #include <iostream>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
-using namespace std;
 using namespace cv;
+using namespace std;
 
 int main(int argc, char** argv)
 {
 	//checking if there are 4 parameters
 	if(argc != 5)
 	{
-		cout<<"Error: There should be 3 parameters!\n";
+		cout<<"Error: There should be 4 parameters!\n";
 		return -1;
 	}
 
 
 	//defying variables
 	Mat inputImage, outputImage, kern;
-	stringstream s;
-	unsigned char pe, se;	// primary and secondary enhancementFactor
+	stringstream paramStream;
+	short int pe;	// primary enhancementFactor
+	short int se;	// primary enhancementFactor
 
 
 	//loading input image
@@ -31,19 +33,27 @@ int main(int argc, char** argv)
 
 
 	//loading enhancement factors
-	s << argv[3];
-	s >> pe;
-	s << argv[4];
-	s >> se;
-
+	paramStream << argv[3];
+	paramStream >> pe;
+	paramStream.clear();
+	paramStream << argv[4];
+	paramStream >> se;
+	cout << "primary enhancement factor: " << pe << endl;
+	cout << "secondary enhancement factor: " << se << endl;
+	if(pe > 255 || pe < -255 || se > 255 || se < -255)
+	{
+		cout<<"enhancement factors should be in range <-255, 255>\n";
+		return -1;
+	}
 
 	//assigning mask to kern variable
-	kern = (Mat_<char>(3,3) << 0, se, 0,
+	kern = (Mat_<char>(3,3) << 0,  se, 0,
 							   se, pe, se,
-							   0, se, 0);
+							   0,  se, 0);
 
 	//applying mask to input image
 	filter2D(inputImage, outputImage, inputImage.depth(), kern);
+
 
 	//saving output image
 	imwrite(argv[2], outputImage);

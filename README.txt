@@ -7,9 +7,9 @@ Takes in 4 parameters:
 <secondary_enhancement_factor>	Lateral element of mask.
 
 Mask matrix construction method:
- | 0	se 		0  |	
- | se 	pe 		se |
- | 0	se		0 _|
+ | 0	se 	 0  |	
+ | se 	pe 	 se |
+ | 0	se	 0 _|
 
 Coded by: Rafal Mossakowski
 Language: C++
