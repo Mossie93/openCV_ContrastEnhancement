@@ -3,8 +3,8 @@ Simple image contrast enhancement project realized with openCV.
 Takes in 4 parameters:
 <input_img_file_name>		Name of file with input image.
 <output_img_file_name>		Name of file where output image should be saved.
-<primary_enhancement_factor>	Central element of mask.
-<secondary_enhancement_factor>	Lateral element of mask.
+<primary_enhancement_factor>	Central element of mask. Should be between -255 and 255.
+<secondary_enhancement_factor>	Lateral element of mask. Shoul be between -255 and 255.
 
 Mask matrix construction method:
  | 0	se 	 0  |	
